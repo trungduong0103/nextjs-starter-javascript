@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function FirstPost() {
   return (
@@ -10,6 +11,13 @@ export default function FirstPost() {
           <a>home!</a>
         </Link>
       </h1>
+      <h1>This is a NextJS image:</h1>
+      <Image
+        src="/images/profile.jpeg"
+        height={144}
+        width={144}
+        alt="Profile Picture!"
+      />
     </>
   );
 }
