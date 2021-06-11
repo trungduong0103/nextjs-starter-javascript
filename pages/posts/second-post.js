@@ -1,18 +1,37 @@
 import Head from "next/head";
 import Layout from "../../components/layout/Layout";
 
-export async function getStaticProps() {
-  const request = await fetch(
-    "https://goweather.herokuapp.com/weather/BienHoa"
-  );
+const city = "Bien Hoa";
+const weatherUrl = `https://goweather.herokuapp.com/weather/${city}`;
 
-  const weather = await request.json();
+// getStaticProps() is run at build time
+// should not use when the page is frequently updated, and the page content is changed after every quests
+// examples of getStaticProps(): Blogs, Journal, Newsletter, etc
+// export async function getStaticProps() {
+//   const request = await fetch(url);
+//   const weather = await request.json();
 
-  return {
-    props: {
-      weather: weather,
-    },
-  };
+//   return {
+//     props: {
+//       weather,
+//     },
+//   };
+// }
+
+// getServerSideProps() is run at request time
+export async function getServerSideProps(context) {
+  try {
+    const request = await fetch(weatherUrl);
+    const weather = await request.json();
+
+    return {
+      props: {
+        weather,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export function SecondPost({ weather }) {

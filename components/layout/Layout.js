@@ -45,9 +45,20 @@ export default function Layout({ children, home }) {
 
       <footer>
         <div className={styles.backToHome}>
-          <Link href={home ? "/posts/first-post" : "/"}>
-            <a>{!home ? "Back to home" : "Go to first post"}</a>
-          </Link>
+          {!home ? (
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          ) : (
+            <>
+              <Link href="/posts/first-post">
+                <a style={{ marginRight: "10px" }}>Go to first post</a>
+              </Link>
+              <Link href="/posts/second-post">
+                <a>Go to second post</a>
+              </Link>
+            </>
+          )}
         </div>
       </footer>
     </div>
