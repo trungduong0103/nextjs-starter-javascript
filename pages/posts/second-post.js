@@ -1,8 +1,21 @@
+import { useState } from "react";
 import Head from "next/head";
 import Layout from "../../components/layout/Layout";
 
-const city = "Bien Hoa";
-const weatherUrl = `https://goweather.herokuapp.com/weather/${city}`;
+const defaultCity = "Bien Hoa";
+const weatherUrl = `https://goweather.herokuapp.com/weather/`;
+
+async function fetchWeather(city) {
+  console.log(`${weatherUrl}/${city ? city : defaultCity}`);
+  try {
+    const request = await fetch(`${weatherUrl}/${city ? city : defaultCity}`);
+    const weather = await request.json();
+    return weather;
+  } catch (error) {
+    console.log("Error getting weather");
+    return null;
+  }
+}
 
 // getStaticProps() is run at build time
 // should not use when the page is frequently updated, and the page content is changed after every quests
@@ -20,21 +33,16 @@ const weatherUrl = `https://goweather.herokuapp.com/weather/${city}`;
 
 // getServerSideProps() is run at request time
 export async function getServerSideProps(context) {
-  try {
-    const request = await fetch(weatherUrl);
-    const weather = await request.json();
-
-    return {
-      props: {
-        weather,
-      },
-    };
-  } catch (err) {
-    console.log(err);
-  }
+  const weather = await fetchWeather();
+  return {
+    props: {
+      weather,
+    },
+  };
 }
 
 export function SecondPost({ weather }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Layout>
       <Head>
