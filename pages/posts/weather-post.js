@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export function SecondPost({ weather }) {
+export default function WeatherPost({ weather }) {
   const [loading, setLoading] = useState(false);
   return (
     <Layout>
@@ -55,5 +55,3 @@ export function SecondPost({ weather }) {
     </Layout>
   );
 }
-
-export default SecondPost;
