@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Layout from "../components/layout/Layout";
 import utilStyles from "../styles/utils.module.css";
 
 export default function Custom404() {
